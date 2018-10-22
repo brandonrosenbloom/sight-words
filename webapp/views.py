@@ -8,13 +8,17 @@ from words.models import Words, Grade
 
 
 def home(request):
+    return render(request, 'home.html')
+
+
+def grades(request):
     grades = Grade.objects.all()
 
     context = {
         'grades': grades,
     }
 
-    return render(request, 'home.html', context)
+    return render(request, 'grades.html', context)
 
 
 def words_by_grade(request, grade):
@@ -24,9 +28,11 @@ def words_by_grade(request, grade):
 
     else:
         words = Words.objects.filter(grade=grade)
+        grade = Grade.objects.filter(id=grade).first
 
         context = {
             'words': words,
+            'grade': grade,
         }
 
         return render(request, 'words.html', context)

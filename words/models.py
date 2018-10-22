@@ -6,6 +6,7 @@ from django.db import models
 
 class Grade(models.Model):
     name = models.CharField(max_length=2)
+    full_name = models.CharField(max_length=50, default='', blank=True)
 
     def __str__(self):
         return self.name

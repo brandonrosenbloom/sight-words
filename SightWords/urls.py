@@ -20,5 +20,6 @@ from webapp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', home, name='home'),
-    path('words/<grade>', words_by_grade, name='words'),
+    path('grades/', grades, name='grades'),
+    path('<grade>/words', words_by_grade, name='words'),
 ]
