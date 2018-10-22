@@ -5,6 +5,8 @@ from django.shortcuts import render
 from words.models import Words, Grade
 from django.contrib.auth.models import User
 from feedback.models import Feedback
+from feedback.forms import FeedbackForm
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -52,3 +54,19 @@ def feedback(request):
         }
 
         return render(request, 'feedback.html', context)
+
+
+def add_feedback(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.submitted_by_id = 1
+            # post.published_date = timezone.now()
+            form.save()
+
+            return redirect('feedback')
+    else:
+        form = FeedbackForm()
+
+    return render(request, 'add_feedback.html', {'form': form})
