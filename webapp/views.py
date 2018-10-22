@@ -28,9 +28,11 @@ def words_by_grade(request, grade):
 
     else:
         words = Words.objects.filter(grade=grade)
+        grade = Grade.objects.filter(id=grade).first
 
         context = {
             'words': words,
+            'grade': grade,
         }
 
         return render(request, 'words.html', context)

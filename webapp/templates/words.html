@@ -1,31 +1,45 @@
 {% extends 'base.html' %}
 
+{% block title %}
+{{ grade.full_name }}-List of Words
+{% endblock %}
+
 {% block style %}
 
-table, th, td {
-    border: 1px solid black;
+.wordlist {
     text-align: center;
+    padding: 5px;
+    margin : 5px;
 }
 
 {% endblock %}
 
+{% block jumbo1 %}
+{{ grade.full_name }}
+{% endblock %}
+
+{% block jumbo2 %}
+Below is a list of words suited for children in {{ grade.full_name }}.
+{% endblock %}
+
 {% block body1 %}
 
-<table>
-  <thead>
-    <th>Proper Word</th>
-    <th>Upper Case Word</th>
-    <th>Lower Case Word</th>
-  </thead>
+{% for word in words %}
+<div class="wordlist">
+    <!--<table>-->
+        <!--<thead>-->
+            <!--<th>Word</th>-->
+        <!--</thead>-->
+            <!--{% for word in words %}-->
+            <!--<tr>-->
+                <!--<td>{{ word.word }}</td>-->
+            <!--</tr>-->
+            <!--{% endfor %}-->
+    <!--</table>-->
+    <h1>{{ word.word }}</h1>
 
-    {% for word in words %}
-    <tr>
-        <td>{{ word.word }}</td>
-        <td>{{ word.word|upper }}</td>
-        <td>{{ word.word|lower }}</td>
-    </tr>
-    {% endfor %}
- </table>
+</div>
+{% endfor %}
 
 {% endblock %}
 
