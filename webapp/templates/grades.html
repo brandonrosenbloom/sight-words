@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+List of Grades
+{% endblock %}
+
+{% block jumbo1 %}
+List of Grades
+{% endblock %}
+
+{% block jumbo2 %}
+Below you will see a list of grades which we support.
+{% endblock %}
+
+{% block body1 %}
+<div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            {% for grade in grades %}
+          <div class="col-md-4">
+            <h2>{{ grade.full_name }}</h2>
+            <!--<p>Use this list to find the words your child needs to learn</p>-->
+            <p><a class="btn btn-secondary" href="{% url 'words' grade.id%}" role="button">View details &raquo;</a></p>
+          </div>
+            {% endfor %}
+
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+{% endblock %}

@@ -1,27 +1,45 @@
 {% extends 'base.html' %}
 
+{% block title %}
+Sight Words site
+{% endblock %}
 
+{% block jumbo1 %}
+Welcome!
+{% endblock %}
+
+{% block jumbo2 %}
+This is a website dedicated to helping kids learn and practice their sight words!
+{% endblock %}
 
 {% block body1 %}
 
-<style>
-    .button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 5%;
-    margin: 5%;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 24px;
-    }
-</style>
+<div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-md-4">
+            <h2>Grade List</h2>
+            <p>Use this list to find the words your child needs to learn</p>
+            <p><a class="btn btn-secondary" href="{% url 'grades' %}" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Sight Word Methodology</h2>
+            <p>List of references for practicing sight words with your child.</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Feedback</h2>
+            <p>All feedback is welcome. Please submit yours here.</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+        </div>
 
-<h2>Pick a grade level:</h2>
+        <hr>
 
-{% for grade in grades %}
-<a href="{% url 'words' grade.id %}" button class="button">{{ grade.name }}</button>
-{% endfor %}
+      </div> <!-- /container -->
+
+<!--{% for grade in grades %}-->
+<!--<a href="{% url 'words' grade.id %}" button class="button">{{ grade.name }}</button>-->
+<!--{% endfor %}-->
 
 {% endblock %}
