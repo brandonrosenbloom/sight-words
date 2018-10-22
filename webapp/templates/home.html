@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+
+{% block body1 %}
+
+<style>
+    .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5%;
+    margin: 5%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    }
+</style>
+
+<h2>Pick a grade level:</h2>
+
+{% for grade in grades %}
+<a href="{% url 'words' grade.id %}" button class="button">{{ grade.name }}</button>
+{% endfor %}
+
+{% endblock %}

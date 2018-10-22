@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block style %}
+
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+{% endblock %}
+
+{% block body1 %}
+
+<table>
+  <thead>
+    <th>Proper Word</th>
+    <th>Upper Case Word</th>
+    <th>Lower Case Word</th>
+  </thead>
+
+    {% for word in words %}
+    <tr>
+        <td>{{ word.word }}</td>
+        <td>{{ word.word|upper }}</td>
+        <td>{{ word.word|lower }}</td>
+    </tr>
+    {% endfor %}
+ </table>
+
+{% endblock %}
+
+</body>

@@ -1,0 +1,81 @@
+version: '2.1'
+
+volumes:
+    pgdata-volume:
+
+services:
+  db:
+    image: "postgres:9.6-alpine"
+    volumes:
+      - pgdata-volume:/pgdata
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    environment:
+      POSTGRES_PASSWORD: TerribleDevPassword
+      POSTGRES_USER: mt_archive
+      PGDATA: /pgdata
+    healthcheck:
+      # ensure postgress is running before web starts
+      test: ["CMD", "/usr/local/bin/pg_isready"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+
+  redis:
+    # https://hub.docker.com/_/redis/
+    image: "redis:3.2-alpine"
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    # Run the cli:
+    # docker-compose run --rm redis redis-cli -h redis
+
+  web:
+    image: webapp
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      migration:
+        condition: service_started
+
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "${DJANGO_LOCAL_PORT:-8000}:8000"
+    environment:
+      IN_DOCKER: dev
+      DJANGO_DEBUG: 'true'
+
+      DB_NAME: mt_archive
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: mt_archive
+      DB_PASSWORD: TerribleDevPassword
+
+      REDIS_URL: redis://redis:6379
+
+    # Make interactive
+    stdin_open: true
+    tty: true
+    command: ["runserver", "0.0.0.0:8000"]
+
+  migration:
+    build: .
+    image: webapp
+    command: ["migrate", "--noinput"]
+    volumes:
+      - .:/usr/src/app
+    environment:
+      IN_DOCKER: migration
+      DJANGO_DEBUG: 'true'
+
+      DB_NAME: mt_archive
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: mt_archive
+      DB_PASSWORD: TerribleDevPassword
+
+    depends_on:
+      db:
+        condition: service_healthy
