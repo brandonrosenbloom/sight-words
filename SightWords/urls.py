@@ -22,4 +22,5 @@ urlpatterns = [
     path('', home, name='home'),
     path('grades/', grades, name='grades'),
     path('<grade>/words', words_by_grade, name='words'),
+    path('feedback/', feedback, name='feedback'),
 ]

@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from words.models import Words, Grade
+from django.contrib.auth.models import User
+from feedback.models import Feedback
 
 # Create your views here.
 
@@ -36,3 +38,17 @@ def words_by_grade(request, grade):
         }
 
         return render(request, 'words.html', context)
+
+
+def feedback(request):
+    if not Feedback.objects.filter(active=True):
+        return render(request, 'no_feedback.html')
+
+    else:
+        all_feedback = Feedback.objects.filter(active=True)
+
+        context = {
+            'all_feedback': all_feedback,
+        }
+
+        return render(request, 'feedback.html', context)
