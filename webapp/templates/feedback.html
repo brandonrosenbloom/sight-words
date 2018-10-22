@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sight Words Feedback Page
+{% endblock %}
+
+{% block style %}
+#table, tr, td , th {
+    border: 1px solid black;
+{% endblock %}
+
+{% block jumbo1 %}
+Feedback
+{% endblock %}
+
+{% block jumbo2 %}
+If you have any suggestions, please feel free to share them here.
+{% endblock %}
+
+{% block body1 %}
+<div>
+    <a href="{% url 'add_feedback' %}">Add Feedback</a>
+</div>
+
+
+<div>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Submission Date</th>
+        </tr>
+            {% for feedback in all_feedback %}
+        <tr>
+            <td>{{ feedback.title }}</td>
+            <td>{{ feedback.description }}</td>
+            <td>{{ feedback.creation_date }}</td>
+        </tr>
+    </table>
+</div>
+{% endfor %}
+{% endblock %}

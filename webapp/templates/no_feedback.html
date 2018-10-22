@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sight Words Feedback Page
+{% endblock %}
+
+{% block style %}
+#messaging {
+    text-align: left;
+    margin: 5px;
+    padding: 5px;
+    }
+{% endblock %}
+
+{% block jumbo1 %}
+Feedback
+{% endblock %}
+
+{% block jumbo2 %}
+If you have any suggestions, please feel free to share them here.
+{% endblock %}
+
+{% block body1 %}
+<div id="messaging">
+    <h3>Looks like we don't have any feedback to work on. Send some in now!.</h3>
+    <a href="{% url 'add_feedback' %}">Add Feedback</a>
+</div>
+{% endblock %}
+
